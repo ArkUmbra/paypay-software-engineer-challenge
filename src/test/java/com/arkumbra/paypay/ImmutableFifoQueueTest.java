@@ -61,19 +61,19 @@ public class ImmutableFifoQueueTest {
     queue = queue.enQueue(element4);
 
     System.out.println(queue.head());
-//    assertEquals(element1, queue.head());
+    assertEquals(element1, queue.head());
 
     queue = queue.deQueue();
     System.out.println(queue.head());
-//    assertEquals(element2, queue.head());
+    assertEquals(element2, queue.head());
 
     queue = queue.deQueue();
     System.out.println(queue.head());
-//    assertEquals(element3, queue.head());
+    assertEquals(element3, queue.head());
 
     queue = queue.deQueue();
     System.out.println(queue.head());
-//    assertEquals(element4, queue.head());
+    assertEquals(element4, queue.head());
   }
 
   @Test
