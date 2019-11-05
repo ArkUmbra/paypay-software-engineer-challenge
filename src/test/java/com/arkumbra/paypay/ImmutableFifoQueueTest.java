@@ -17,7 +17,6 @@ public class ImmutableFifoQueueTest {
 
     Queue<String> initialQueue = new ImmutableFifoQueue<String>();
     assertTrue(initialQueue.isEmpty());
-    assertNull(initialQueue.head());
 
     Queue<String> updatedQueue = initialQueue.enQueue(initialVal);
 

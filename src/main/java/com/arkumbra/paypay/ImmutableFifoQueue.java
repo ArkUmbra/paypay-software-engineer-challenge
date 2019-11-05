@@ -39,12 +39,8 @@ public class ImmutableFifoQueue<T> implements Queue<T> {
 
   @Override
   public Queue<T> enQueue(T t) {
-//    if (dequeingStack.element() == null) {
-//    if (enqueingStack.isEmptyStack() && dequeingStack.isEmptyStack())  {
-
     if (this.isEmptyQueue)  {
       // so that first dequeue doesn't fail
-//      return new ImmutableFifoQueue<T>(dequeingStack.push(t), dequeingStack.push(t));
       return new ImmutableFifoQueue<T>(new Stack<T>().push(t), new Stack<>());
     }
 
@@ -57,7 +53,6 @@ public class ImmutableFifoQueue<T> implements Queue<T> {
       throw new IndexOutOfBoundsException("Cant deque as no elements");
     }
 
-
     Stack<T> newDequeued = dequeingStack.pop(); // clear the top element;
 
     if (! newDequeued.isEmptyStack()) {
@@ -69,17 +64,6 @@ public class ImmutableFifoQueue<T> implements Queue<T> {
     }
 
     return new ImmutableFifoQueue<>(enqueingStack.flip(), new Stack<>());
-
-
-//    if (newDequeued == null) {
-//      // this means nothing more in the queue (dequeued everything), so just
-//      // make a new _empty_ queue
-//      return new ImmutableFifoQueue<T>();
-//
-//    } else {
-//      return new ImmutableFifoQueue<T>(newDequeued, enqueingStack);
-//    }
-
   }
 
   @Override
@@ -88,16 +72,11 @@ public class ImmutableFifoQueue<T> implements Queue<T> {
       throw new IndexOutOfBoundsException("Cant get head as no elements");
     }
 
-//    if (enqueingStack.isEmptyStack()) {
-//      this.
-//    }
-
     return dequeingStack.element();
   }
 
   @Override
   public boolean isEmpty() {
-//    return enqueingStack.isTempStack();
     return isEmptyQueue;
   }
 }
@@ -115,26 +94,16 @@ class Stack<T> {
     this.isEmptyStack = true;
   }
 
-
   private Stack(Stack<T> below, T element) {
     this.below = below;
     this.element = element;
     this.isEmptyStack = false;
   }
 
-  private Stack<T> createNewEmptyQueue() {
-    return new Stack<T>();
-  }
-
   public boolean isEmptyStack() {
     return isEmptyStack;
   }
 
-  //
-//  private Stack<T> createNewQueueFromSingleElement(T element) {
-//    return new Stack<T>(null, null, element);
-//  }
-//
   public Stack<T> push(T newElement) {
     return new Stack<T>(this, newElement);
   }
@@ -142,46 +111,6 @@ class Stack<T> {
   public Stack<T> pop() {
     return below;
   }
-
-  /**
-   * Removes the element at the beginning of the immutable queue, and returns the new queue.
-   */
-//  public Queue<T> deQueue() {
-//    if (isEmpty()) {
-//      throw new IndexOutOfBoundsException("Cannot deque an empty queue");
-//
-//    } else {
-//      if (isHead()) {
-//        // for non-empty head, just 'delete' this element
-//        // i.e  create a single node queue without an element
-//        return createNewEmptyQueue();
-//
-//      } else {
-//        // get element behind the head of the queue
-//        ImmutableFifoQueue<T> newHead = getElementBehindHead();
-//
-//
-//        // replace this element itself
-//        ImmutableFifoQueue<T> newEndOfQueue = new ImmutableFifoQueue<>(newHead, this.elementInfront, element);
-//        //ImmutableFifoQueue<T> newEndOfQueue = new ImmutableFifoQueue<>(newHead, elementInFront, element);
-//
-//        return newEndOfQueue;
-//      }
-//    }
-//  }
-
-//  private ImmutableFifoQueue<T> getElementBehindHead() {
-//    if (isElementDirectlyBehindHead()) {
-//      return this;
-//    } else {
-//      return elementInfront.getElementBehindHead();
-//    }
-//  }
-//
-//  private boolean isElementDirectlyBehindHead() {
-//    return elementInfront.isHead();
-//  }
-
 
   public Stack<T> flip() {
     Stack<T> flipped = new Stack<T>();
@@ -196,28 +125,8 @@ class Stack<T> {
     return flipped;
   }
 
-  //@Override
   public T element() {
     return element;
   }
-
-//  @Override
-//  public boolean isEmpty() {
-//    // If this object has no reference to the head, then it IS the head
-//    // therefore if there is no element here, then the whole queue is empty
-//    return isHead() && (this.element == null);
-//  }
-//
-//  private boolean isHead() {
-//    return head == null;
-//  }
-//
-//  private ImmutableFifoQueue<T> getHeadOfQueue() {
-//    if (isHead()) {
-//      return this;
-//    } else {
-//      return this.head;
-//    }
-//  }
 
 }
