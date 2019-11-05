@@ -47,7 +47,7 @@ Additionally, I had initially been mostly considering preventing changes INSIDE 
 complete immutable behaviour (as referenced by my first attempt - a relic of which can be found 
 at _src/main/java/com/arkumbra/paypay/test/ImmutableFifoQueueDeep.java_ in commit __048b2e8__). I 
 was thinking I could either create a json copy of the element being queued, or serialise it to a 
-byte array. However, that had the problem of required a JSON parser lib, and mandating that only
+byte array. However, that had the problem of required a JSON parser lib, or mandating that only
 objects implementing the 'Serializable' interface be allowed into the queue - both of which seemed 
 to be against what the challenge was after. That being said, it's an avenue for stricter 
 immutability at the cost of speed if so required.
