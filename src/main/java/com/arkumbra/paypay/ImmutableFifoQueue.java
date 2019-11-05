@@ -41,6 +41,7 @@ public class ImmutableFifoQueue<T> implements Queue<T> {
   public Queue<T> enQueue(T t) {
 //    if (dequeingStack.element() == null) {
 //    if (enqueingStack.isEmptyStack() && dequeingStack.isEmptyStack())  {
+
     if (this.isEmptyQueue)  {
       // so that first dequeue doesn't fail
 //      return new ImmutableFifoQueue<T>(dequeingStack.push(t), dequeingStack.push(t));
@@ -86,6 +87,10 @@ public class ImmutableFifoQueue<T> implements Queue<T> {
     if (this.isEmptyQueue) {
       throw new IndexOutOfBoundsException("Cant get head as no elements");
     }
+
+//    if (enqueingStack.isEmptyStack()) {
+//      this.
+//    }
 
     return dequeingStack.element();
   }
@@ -180,11 +185,11 @@ class Stack<T> {
 
   public Stack<T> flip() {
     Stack<T> flipped = new Stack<T>();
-    flipped.push(this.element);
+    flipped = flipped.push(this.element);
 
     Stack<T> current = this.pop();
-    while (current != null) {
-      flipped.push(current.element);
+    while (! current.isEmptyStack) {
+      flipped = flipped.push(current.element);
       current = current.pop();
     }
 
