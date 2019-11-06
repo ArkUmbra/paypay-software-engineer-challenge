@@ -1,21 +1,7 @@
 package com.arkumbra.paypay;
 
 /***
- * Was thinking about storing a collection or array of elements in the queue, then copying the
- * whole collection for each new instance of Queue, but would become prettyexpensive as queue
- * gets bigger...
- *
- * When trying to think of a way to copy efficiently when adding or removing a single element,
- * it occurred to be I might be able to just map a single 'T' element to each queue instance,
- * but pass the parent queue in to the new one. In that way you can just move a chain of queues
- * around.
- *
- * This would be fast for adding an element, but would be slow for removing an element, as you'd
- * have to navigate up to the head of the queue to remove it. Because of this, I attempted to have
- * all elements in the queue have a reference to the head, so that removal of the header element
- * can be fast.
- *
- * Ended up looking similar to singly-linked list
+ * Please see readme for explanation of behaviour and changes.
  *
  * @param <T> Type of item to be queued
  */
@@ -55,15 +41,19 @@ public class ImmutableFifoQueue<T> implements Queue<T> {
 
     Stack<T> newDequeued = dequeingStack.pop(); // clear the top element;
 
-    if (! newDequeued.isEmptyStack()) {
+    if (newDequeued.isEmptyStack()) {
+      if (enqueingStack.isEmptyStack()) {
+        // return a clean empty queue
+        return new ImmutableFifoQueue<T>();
+      } else {
+        // dequeueing stack is empty, but enqueing is not. Flip the enqueuing stack around so that
+        // it looks like a dequeuing stack - takes time.
+        return new ImmutableFifoQueue<>(enqueingStack.flip(), new Stack<>());
+      }
+
+    } else {
       return new ImmutableFifoQueue<T>(newDequeued, enqueingStack);
     }
-
-    if (enqueingStack.isEmptyStack()) {
-      return new ImmutableFifoQueue<T>();
-    }
-
-    return new ImmutableFifoQueue<>(enqueingStack.flip(), new Stack<>());
   }
 
   @Override
